@@ -10,6 +10,7 @@
 *            Bernd Schubert <bernd-schubert@gmx.de>
 */
 
+#include <sys/mount.h>
 #if defined __linux__
 	// For pread()/pwrite()/utimensat()
 	#define _XOPEN_SOURCE 700
@@ -274,11 +275,17 @@ static void *unionfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) 
 	}
 
 #ifdef FUSE_CAP_IOCTL_DIR
-	if (conn->capable & FUSE_CAP_IOCTL_DIR)
+	if (conn->capable & FUSE_CAP_IOCTL_DIR){
 		conn->want |= FUSE_CAP_IOCTL_DIR;
+  }
 #endif
 
 	return NULL;
+}
+
+static void unionfs_destroy(void *private_data) {
+  umount(uopt.dev);
+  umount(uopt.proc);
 }
 
 static int unionfs_link(const char *from, const char *to) {
@@ -305,6 +312,7 @@ static int unionfs_link(const char *from, const char *to) {
 	remove_hidden(to, i); // remove hide file (if any)
 	RETURN(0);
 }
+
 
 #if FUSE_USE_VERSION < 35
 static int unionfs_ioctl(const char *path, int cmd, void *arg, struct fuse_file_info *fi, unsigned int flags, void *data) {
@@ -930,6 +938,7 @@ struct fuse_operations unionfs_oper = {
 	.getattr = unionfs_getattr,
 	.access = unionfs_access,
 	.init = unionfs_init,
+	.destroy = unionfs_destroy,
 	.ioctl = unionfs_ioctl,
 	.link = unionfs_link,
 	.mkdir = unionfs_mkdir,

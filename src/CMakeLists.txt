@@ -1,7 +1,7 @@
 set(HASHTABLE_SRCS hashtable.c hashtable_itr.c)
 set(UNIONFS_SRCS unionfs.c opts.c debug.c findbranch.c readdir.c
     general.c unlink.c cow.c cow_utils.c string.c rmdir.c usyslog.c
-    fuse_ops.c)
+    fuse_ops.c diffgen.cpp)
 set(UNIONFSCTL_SRCS unionfsctl.c)
 
 SET(_COMMON_FLAGS "-pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64")
@@ -28,7 +28,4 @@ target_include_directories(unionfs PUBLIC ${FUSE_INCLUDE_DIRS})
 target_compile_options(unionfs PUBLIC ${FUSE_CFLAGS_OTHER})
 target_link_libraries(unionfs ${FUSE_LIBRARIES})
 
-add_executable(unionfsctl ${UNIONFSCTL_SRCS})
-
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/unionfs DESTINATION bin)
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/unionfsctl DESTINATION bin)

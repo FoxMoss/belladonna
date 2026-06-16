@@ -33,6 +33,9 @@ typedef struct {
 	bool relaxed_permissions;
 	bool direct_io;
 
+  char *dev;
+  char *proc;
+
 } uopt_t;
 
 enum {
