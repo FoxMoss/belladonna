@@ -1,0 +1,4 @@
+Diagnostics:
+  ClangTidy:
+    Add: ['bugprone-*', 'modernize*']
+    Remove: modernize-use-trailing-return-type

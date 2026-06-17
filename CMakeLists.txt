@@ -5,6 +5,25 @@ project(unionfs-fuse VERSION 3.4
                      LANGUAGES C CXX)
 
 INCLUDE(CheckIncludeFiles)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+include(cmake/CPM.cmake)
+set(CPM_SOURCE_CACHE ${CMAKE_BINARY_DIR}/cpmcache)
+
+set(BUILD_SHARED_LIBS OFF)
+CPMAddPackage(
+  URI "gh:libarchive/libarchive@3.8.7"
+  OPTIONS "BUILD_SHARED_LIBS OFF"
+          "HAVE_SYS_WAIT_H ON"
+          "HAVE_WCHAR_H ON"
+          "HAVE_SYS_TIME_H ON"
+          "HAVE_SYS_STATVFS_H ON"
+          "ENABLE_ZSTD OFF"
+          "ENABLE_OPENSSL OFF"
+          "CMAKE_C_FLAGS -Wno-discarded-qualifiers"
+)
+
 
 # Set a default build type for single-configuration
 # CMake generators if no build type is set.
@@ -39,6 +58,7 @@ if (UNIX AND APPLE)
 endif()
 
 INSTALL(PROGRAMS mount.unionfs DESTINATION sbin)
+
 
 add_subdirectory(src)
 add_subdirectory(man)

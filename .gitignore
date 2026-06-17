@@ -70,4 +70,4 @@ Doxyfile
 
 # diff rejects
 *.rej
-
+compile_commands.json

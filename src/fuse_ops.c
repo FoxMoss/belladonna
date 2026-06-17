@@ -284,8 +284,6 @@ static void *unionfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) 
 }
 
 static void unionfs_destroy(void *private_data) {
-  umount(uopt.dev);
-  umount(uopt.proc);
 }
 
 static int unionfs_link(const char *from, const char *to) {
@@ -845,33 +843,46 @@ static int unionfs_getxattr(const char *path, const char *name, char *value, siz
 #else
 static int unionfs_getxattr(const char *path, const char *name, char *value, size_t size) {
 #endif
-	DBG("%s\n", path);
+  DBG("%s\n", path);
 
-	int i = find_rorw_branch(path);
-	if (i == -1) RETURN(-errno);
+  int i = find_rorw_branch(path);
+  if (strcmp(path, "/") == 0) {
+    i = uopt.nbranches - 1;
+  }
+  if (i == -1) RETURN(-errno);
 
-	char p[PATHLEN_MAX];
-	if (BUILD_PATH(p, uopt.branches[i].path, path)) RETURN(-ENAMETOOLONG);
+  char p[PATHLEN_MAX];
+  if (strcmp(path, "/") == 0) {
+    p[0] = '/';
+    p[1] = '\0';
+  } else{
+    if (BUILD_PATH(p, uopt.branches[i].path, path)) RETURN(-ENAMETOOLONG);
+  }
 
 #if __APPLE__
-	int res = getxattr(p, name, value, size, position, XATTR_NOFOLLOW);
+  int res = getxattr(p, name, value, size, position, XATTR_NOFOLLOW);
 #else
-	int res = lgetxattr(p, name, value, size);
+  int res = lgetxattr(p, name, value, size);
 #endif
 
-	if (res == -1) RETURN(-errno);
+  if (res == -1) RETURN(-errno);
 
-	RETURN(res);
+  RETURN(res);
 }
 
 static int unionfs_listxattr(const char *path, char *list, size_t size) {
 	DBG("%s\n", path);
 
-	int i = find_rorw_branch(path);
+  int i = find_rorw_branch(path);
 	if (i == -1) RETURN(-errno);
 
 	char p[PATHLEN_MAX];
-	if (BUILD_PATH(p, uopt.branches[i].path, path)) RETURN(-ENAMETOOLONG);
+  if (strcmp(path, "/") == 0) {
+    p[0] = '/';
+    p[1] = '\0';
+  } else{
+    if (BUILD_PATH(p, uopt.branches[i].path, path)) RETURN(-ENAMETOOLONG);
+  }
 
 #if __APPLE__
 	int res = listxattr(p, list, size, XATTR_NOFOLLOW);
