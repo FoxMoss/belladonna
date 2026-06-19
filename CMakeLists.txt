@@ -21,7 +21,18 @@ CPMAddPackage(
           "HAVE_SYS_STATVFS_H ON"
           "ENABLE_ZSTD OFF"
           "ENABLE_ZLIB OFF"
+          "ENABLE_BZip2 OFF"
+          "ENABLE_LZMA OFF"
+          "ENABLE_LIBXML2 OFF"
           "ENABLE_OPENSSL OFF"
+          "ENABLE_LIBB2 OFF"
+          "HAVE_LIBXML_XMLREADER_H OFF"
+          "HAVE_LIBXML_XMLVERSION_H OFF"
+          "HAVE_LIBXML_XMLWRITER_H OFF"
+          "ENABLE_EXPAT OFF"
+          "ENABLE_LZ4 OFF"
+          "ENABLE_ACL OFF"
+          "ENABLE_ICONV OFF"
           "CMAKE_C_FLAGS -Wno-discarded-qualifiers"
 )
 
