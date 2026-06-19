@@ -12,16 +12,6 @@ SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -DDEBUG ${_COMMON_FLAGS} -fsanitize=address")
 
 add_library(belladonna ${BELLADONNA_SRCS} ${HASHTABLE_SRCS})
 
-option(WITH_LIBFUSE3 "Enable libfuse3 support" ON)
-
-find_package(PkgConfig REQUIRED)
-
-add_definitions(-DFUSE_USE_VERSION=350 -DHAVE_XATTR)
-pkg_check_modules(FUSE REQUIRED fuse3)
-
-target_include_directories(belladonna PRIVATE ${FUSE_INCLUDE_DIRS})
-target_compile_options(belladonna PRIVATE ${FUSE_CFLAGS_OTHER})
-target_link_libraries(belladonna ${FUSE_LIBRARIES} archive_static)
 target_include_directories(belladonna PUBLIC include/)
 
 add_custom_command(TARGET belladonna POST_BUILD

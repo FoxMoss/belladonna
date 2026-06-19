@@ -3793,97 +3793,97 @@
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/c++ -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -std=gnu++23 -o src/CMakeFiles/belladonna.dir/unionfs.cpp.o -c /home/foxmoss/Projects/unionfs-fuse/src/unionfs.cpp",
+  "command": "/usr/bin/c++ -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -std=gnu++23 -o src/CMakeFiles/belladonna.dir/unionfs.cpp.o -c /home/foxmoss/Projects/unionfs-fuse/src/unionfs.cpp",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/unionfs.cpp",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/unionfs.cpp.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/opts.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/opts.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/opts.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/opts.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/opts.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/opts.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/debug.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/debug.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/debug.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/debug.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/debug.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/debug.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/findbranch.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/findbranch.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/findbranch.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/findbranch.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/findbranch.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/findbranch.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/readdir.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/readdir.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/readdir.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/readdir.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/readdir.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/readdir.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/general.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/general.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/general.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/general.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/general.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/general.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/unlink.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/unlink.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/unlink.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/unlink.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/unlink.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/unlink.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/cow.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/cow.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/cow.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/cow.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/cow.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/cow.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/cow_utils.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/cow_utils.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/cow_utils.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/cow_utils.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/cow_utils.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/cow_utils.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/string.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/string.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/string.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/string.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/string.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/string.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/rmdir.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/rmdir.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/rmdir.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/rmdir.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/rmdir.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/rmdir.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/usyslog.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/usyslog.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/usyslog.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/usyslog.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/usyslog.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/usyslog.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/fuse_ops.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/fuse_ops.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/fuse_ops.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/fuse_ops.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/fuse_ops.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/fuse_ops.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/c++ -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -std=gnu++23 -o src/CMakeFiles/belladonna.dir/diffgen.cpp.o -c /home/foxmoss/Projects/unionfs-fuse/src/diffgen.cpp",
+  "command": "/usr/bin/c++ -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -std=gnu++23 -o src/CMakeFiles/belladonna.dir/diffgen.cpp.o -c /home/foxmoss/Projects/unionfs-fuse/src/diffgen.cpp",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/diffgen.cpp",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/diffgen.cpp.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/hashtable.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/hashtable.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/hashtable.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/hashtable.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/hashtable.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/hashtable.c.o"
 },
 {
   "directory": "/home/foxmoss/Projects/unionfs-fuse/build",
-  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -isystem /home/foxmoss/Projects/unionfs-fuse/build/cpmcache/libarchive/1591/libarchive/. -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/hashtable_itr.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/hashtable_itr.c",
+  "command": "/usr/bin/cc -DFUSE_USE_VERSION=350 -DHAVE_XATTR -DLIBC_XATTR -I/usr/include/fuse3 -I/home/foxmoss/Projects/unionfs-fuse/src/include -O2 -pipe -W -Wall -D_FORTIFY_SOURCE=2 -D_FILE_OFFSET_BITS=64 -o src/CMakeFiles/belladonna.dir/hashtable_itr.c.o -c /home/foxmoss/Projects/unionfs-fuse/src/hashtable_itr.c",
   "file": "/home/foxmoss/Projects/unionfs-fuse/src/hashtable_itr.c",
   "output": "/home/foxmoss/Projects/unionfs-fuse/build/src/CMakeFiles/belladonna.dir/hashtable_itr.c.o"
 }
