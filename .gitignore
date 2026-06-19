@@ -72,3 +72,4 @@ Doxyfile
 *.rej
 compile_commands.json
 
+bullseye-build/

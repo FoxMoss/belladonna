@@ -11,7 +11,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
-#include <print>
 
 extern "C" {
 void diffgen(const char* changed_dir, const char* truth_dir) {
@@ -31,7 +30,7 @@ void diffgen(const char* changed_dir, const char* truth_dir) {
       continue;
     }
 
-    std::println("{}", file.path().string());
+    printf("%s", file.path().c_str());
 
     struct archive* ard = archive_read_disk_new();
     archive_read_disk_set_standard_lookup(ard);

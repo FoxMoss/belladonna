@@ -20,15 +20,12 @@
 #include <cstddef>
 #include <expected>
 #include <filesystem>
-#include <print>
 #include <thread>
 
 #include "include/belladonna.h"
 
-#define FUSE_USE_VERSION 350
 extern "C" {
 #include "diffgen.h"
-#define _GNU_SOURCE
 #include <dirent.h>
 #include <fcntl.h>
 #include <fuse.h>
@@ -57,10 +54,6 @@ static void* passthrough_init(struct fuse_conn_info* conn,
                               struct fuse_config* cfg) {
   (void)conn;
   cfg->kernel_cache = 1;
-
-  /* Test setting flags the old way */
-  fuse_set_feature_flag(conn, FUSE_CAP_ASYNC_READ);
-  fuse_unset_feature_flag(conn, FUSE_CAP_ASYNC_READ);
 
   return NULL;
 }
@@ -106,7 +99,7 @@ static int passthrough_readdir(const char* path, void* buf,
     st.st_ino = de->d_ino;
     st.st_mode = de->d_type << 12;
 
-    filler(buf, de->d_name, &st, 0, FUSE_FILL_DIR_DEFAULTS);
+    filler(buf, de->d_name, &st, 0, FUSE_FILL_DIR_PLUS);
   }
 
   closedir(dp);
@@ -240,13 +233,13 @@ void unionfs_main(char* union_jail, char* branches, char* mount_dir,
     default_permissions = false;
   } else if (uopt.relaxed_permissions) {
     // protect the user of a very critical security issue
-    std::println(stderr, "Relaxed permissions disallowed for root!");
+    fprintf(stderr, "Relaxed permissions disallowed for root!");
     return;
   }
 
   if (default_permissions) {
     if (fuse_opt_add_arg(&args, "-odefault_permissions")) {
-      std::println(stderr,
+      fprintf(stderr,
                    "Severe failure, can't enable permssion checks, aborting!");
       return;
     }
