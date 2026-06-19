@@ -18,9 +18,12 @@
 #include <array>
 #include <atomic>
 #include <cstddef>
+#include <expected>
 #include <filesystem>
 #include <print>
 #include <thread>
+
+#include "include/belladonna.h"
 
 #define FUSE_USE_VERSION 350
 extern "C" {
@@ -291,74 +294,95 @@ void unionfs_main(char* union_jail, char* branches, char* mount_dir,
   unionfs_done.notify_all();
 }
 
-int main(int argc, char* argv[]) {
+std::expected<BelladonnaState*, std::string>
+BelladonnaState::belladonna_create_sandbox() {
+  auto* state = new BelladonnaState;
   uid_t uid = getuid();
   gid_t gid = getgid();
 
   if (uid != 0 && gid != 0) {
-    std::println(stderr, "error: cannot sandbox without root");
-    return 1;
+    return std::unexpected(std::format("error: cannot sandbox without root"));
   }
 
   if (unshare(CLONE_NEWNS) != 0) {
-    std::println(stderr, "error: {}", strerror(errno));
-    return 1;
+    return std::unexpected(std::format("error: {}", strerror(errno)));
   }
   mount(nullptr, "/", nullptr, MS_SLAVE | MS_REC, nullptr);
 
   time_t epoch = time(nullptr);
 
-  char* base_dir = (char*)malloc(1024);
-  snprintf(base_dir, 1024, "/tmp/foxisolate.%li", epoch);
+  state->base_dir = (char*)malloc(1024);
+  snprintf(state->base_dir, 1024, "/tmp/foxisolate.%li", epoch);
 
-  char* changes_dir = (char*)malloc(1024);
-  snprintf(changes_dir, 1024, "/tmp/foxisolate.%li/changes", epoch);
+  state->changes_dir = (char*)malloc(1024);
+  snprintf(state->changes_dir, 1024, "/tmp/foxisolate.%li/changes", epoch);
 
-  char* mount_dir = (char*)malloc(1024);
-  snprintf(mount_dir, 1024, "/tmp/foxisolate.%li/mount", epoch);
+  state->mount_dir = (char*)malloc(1024);
+  snprintf(state->mount_dir, 1024, "/tmp/foxisolate.%li/mount", epoch);
 
-  char* dev_dir = (char*)malloc(1024);
-  snprintf(dev_dir, 1024, "/tmp/foxisolate.%li/mount/dev", epoch);
+  state->dev_dir = (char*)malloc(1024);
+  snprintf(state->dev_dir, 1024, "/tmp/foxisolate.%li/mount/dev", epoch);
 
-  char* sys_dir = (char*)malloc(1024);
-  snprintf(sys_dir, 1024, "/tmp/foxisolate.%li/mount/sys", epoch);
+  state->sys_dir = (char*)malloc(1024);
+  snprintf(state->sys_dir, 1024, "/tmp/foxisolate.%li/mount/sys", epoch);
 
-  char* proc_dir = (char*)malloc(1024);
-  snprintf(proc_dir, 1024, "/tmp/foxisolate.%li/mount/proc", epoch);
+  state->proc_dir = (char*)malloc(1024);
+  snprintf(state->proc_dir, 1024, "/tmp/foxisolate.%li/mount/proc", epoch);
 
-  char* root_dir = (char*)malloc(1024);
-  snprintf(root_dir, 1024, "/tmp/foxisolate.%li/root", epoch);
-  mkdir(base_dir, 0);
-  mkdir(root_dir, 0);
+  state->root_dir = (char*)malloc(1024);
+  snprintf(state->root_dir, 1024, "/tmp/foxisolate.%li/root", epoch);
+  mkdir(state->base_dir, 0);
+  mkdir(state->root_dir, 0);
 
-  std::thread root_thread(root_fuse_main, root_dir);
+  state->root_thread = std::thread(root_fuse_main, state->root_dir);
 
   while (!root_ready) {
     root_ready.wait(false);
   }
 
-  mkdir(changes_dir, 0);
-  mkdir(mount_dir, 0);
+  mkdir(state->changes_dir, 0);
+  mkdir(state->mount_dir, 0);
 
-  mount("foxisolate", changes_dir, "tempfs", 0, nullptr);
+  mount("foxisolate", state->changes_dir, "tempfs", 0, nullptr);
 
-  char* union_jail = (char*)malloc(1024);
-  snprintf(union_jail, 1024, "-ocow");
+  state->union_jail = (char*)malloc(1024);
+  snprintf(state->union_jail, 1024, "-ocow");
 
-  char* branches = (char*)malloc(1024);
-  snprintf(branches, 1024, "%s=RW:%s=RO", changes_dir, root_dir);
+  state->branches = (char*)malloc(1024);
+  snprintf(state->branches, 1024, "%s=RW:%s=RO", state->changes_dir,
+           state->root_dir);
 
-  std::thread unionfs_thread(unionfs_main, union_jail, branches, mount_dir,
-                             changes_dir, base_dir);
+  state->unionfs_thread =
+      std::thread(unionfs_main, state->union_jail, state->branches,
+                  state->mount_dir, state->changes_dir, state->base_dir);
 
   while (!unionfs_ready) {
     unionfs_ready.wait(false);
   }
 
-  mount("/dev", dev_dir, nullptr, MS_BIND | MS_REC, nullptr);
-  mount("/proc", proc_dir, nullptr, MS_BIND | MS_REC, nullptr);
-  mount("/sys", sys_dir, nullptr, MS_BIND | MS_REC, nullptr);
+  mount("/dev", state->dev_dir, nullptr, MS_BIND | MS_REC, nullptr);
+  mount("/proc", state->proc_dir, nullptr, MS_BIND | MS_REC, nullptr);
+  mount("/sys", state->sys_dir, nullptr, MS_BIND | MS_REC, nullptr);
+  return state;
+}
 
+int BelladonnaState::fork_into() {
+  auto child = fork();
+  if (child == 0) {
+    auto current_path = std::filesystem::current_path();
+    if (chroot(mount_dir) != 0) {
+      std::println(stderr, "error: %s", strerror(errno));
+      exit(0);
+    }
+    if (chdir(current_path.c_str()) != 0) {
+      std::println(stderr, "error: %s", strerror(errno));
+      exit(0);
+    }
+  }
+  return child;
+}
+
+void BelladonnaState::start_shell() {
   auto child = fork();
   if (child == 0) {
     auto current_path = std::filesystem::current_path();
@@ -380,7 +404,9 @@ int main(int argc, char* argv[]) {
     exit(0);
   }
   waitpid(child, nullptr, 0);
+}
 
+BelladonnaState::~BelladonnaState() {
   fuse_session_exit(fuse_get_session(unionfs_fuse));
   fuse_session_exit(fuse_get_session(root_fuse.load()));
 
@@ -409,6 +435,4 @@ int main(int argc, char* argv[]) {
 
   free((void*)branches);
   free((void*)union_jail);
-
-  return 0;
 }
