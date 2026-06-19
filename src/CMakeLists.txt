@@ -16,7 +16,7 @@ option(WITH_LIBFUSE3 "Enable libfuse3 support" ON)
 
 add_definitions(-DFUSE_USE_VERSION=317)
 
-target_link_libraries(belladonna ${FUSE_LIBRARIES} archive_static)
+target_link_libraries(belladonna archive_static)
 target_include_directories(belladonna PUBLIC include/)
 
 add_custom_command(TARGET belladonna POST_BUILD

@@ -364,11 +364,11 @@ int BelladonnaState::fork_into() {
   if (child == 0) {
     auto current_path = std::filesystem::current_path();
     if (chroot(mount_dir) != 0) {
-      std::println(stderr, "error: %s", strerror(errno));
+      fprintf(stderr, "error: %s\n", strerror(errno));
       exit(0);
     }
     if (chdir(current_path.c_str()) != 0) {
-      std::println(stderr, "error: %s", strerror(errno));
+      fprintf(stderr, "error: %s\n", strerror(errno));
       exit(0);
     }
   }
@@ -380,11 +380,11 @@ void BelladonnaState::start_shell() {
   if (child == 0) {
     auto current_path = std::filesystem::current_path();
     if (chroot(mount_dir) != 0) {
-      std::println(stderr, "error: %s", strerror(errno));
+      fprintf(stderr, "error: %s\n", strerror(errno));
       exit(0);
     }
     if (chdir(current_path.c_str()) != 0) {
-      std::println(stderr, "error: %s", strerror(errno));
+      fprintf(stderr, "error: %s\n", strerror(errno));
       exit(0);
     }
 
