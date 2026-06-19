@@ -294,11 +294,11 @@ BelladonnaState::belladonna_create_sandbox() {
   gid_t gid = getgid();
 
   if (uid != 0 && gid != 0) {
-    return std::unexpected(std::format("error: cannot sandbox without root"));
+    return std::unexpected("error: cannot sandbox without root");
   }
 
   if (unshare(CLONE_NEWNS) != 0) {
-    return std::unexpected(std::format("error: {}", strerror(errno)));
+    return std::unexpected(strerror(errno));
   }
   mount(nullptr, "/", nullptr, MS_SLAVE | MS_REC, nullptr);
 

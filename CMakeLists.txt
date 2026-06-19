@@ -11,7 +11,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(cmake/CPM.cmake)
 set(CPM_SOURCE_CACHE ${CMAKE_BINARY_DIR}/cpmcache)
 
-set(BUILD_SHARED_LIBS OFF)
+set(BUILD_SHARED_LIBS ON)
 CPMAddPackage(
   URI "gh:libarchive/libarchive@3.8.7"
   OPTIONS "BUILD_SHARED_LIBS OFF"
@@ -20,6 +20,7 @@ CPMAddPackage(
           "HAVE_SYS_TIME_H ON"
           "HAVE_SYS_STATVFS_H ON"
           "ENABLE_ZSTD OFF"
+          "ENABLE_ZLIB OFF"
           "ENABLE_OPENSSL OFF"
           "CMAKE_C_FLAGS -Wno-discarded-qualifiers"
 )
