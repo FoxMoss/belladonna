@@ -11,7 +11,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(cmake/CPM.cmake)
 set(CPM_SOURCE_CACHE ${CMAKE_BINARY_DIR}/cpmcache)
 
-set(BUILD_SHARED_LIBS ON)
 CPMAddPackage(
   URI "gh:libarchive/libarchive@3.8.7"
   OPTIONS "BUILD_SHARED_LIBS OFF"
