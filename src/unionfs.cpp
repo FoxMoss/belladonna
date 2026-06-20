@@ -149,11 +149,8 @@ static const struct fuse_operations passthrough_oper = {
     .init = passthrough_init,
 };
 
-std::atomic<bool> root_ready = false;
-std::atomic<fuse*> root_fuse = nullptr;
-std::atomic<bool> root_done = false;
 
-void root_fuse_main(char* dir) {
+void BelladonnaState::root_fuse_main(BelladonnaState * state, char* dir) {
   char* argv[] = {"passthrough", nullptr};
   struct fuse_args args = FUSE_ARGS_INIT(1, argv);
 
@@ -161,9 +158,9 @@ void root_fuse_main(char* dir) {
       fuse_new(&args, &passthrough_oper, sizeof(passthrough_oper), nullptr);
   fuse_mount(fuse, dir);
 
-  root_ready = true;
-  root_ready.notify_all();
-  root_fuse = fuse;
+  state->root_ready = true;
+  state->root_ready.notify_all();
+  state->root_fuse = fuse;
 
   struct fuse_loop_config* config = fuse_loop_cfg_create();
   fuse_loop_mt(fuse, config);
@@ -176,15 +173,12 @@ void root_fuse_main(char* dir) {
 
   umount(dir);
   remove(dir);
-  root_done = true;
-  root_done.notify_all();
+  state->root_done = true;
+  state->root_done.notify_all();
 
   return;
 }
 
-std::atomic<bool> unionfs_ready = false;
-std::atomic<fuse*> unionfs_fuse = nullptr;
-std::atomic<bool> unionfs_done = false;
 
 static struct fuse_opt unionfs_opts[] = {
     FUSE_OPT_KEY("chroot=%s,", KEY_CHROOT),
@@ -205,7 +199,7 @@ static struct fuse_opt unionfs_opts[] = {
     FUSE_OPT_KEY("-V", KEY_VERSION),
     FUSE_OPT_END};
 
-void unionfs_main(char* union_jail, char* branches, char* mount_dir,
+void BelladonnaState ::unionfs_main(BelladonnaState * state, char* union_jail, char* branches, char* mount_dir,
                   char* changes_dir, char* base_dir) {
   int argc_internal = 3;
   char* argv_internal[] = {"unionfs", union_jail, branches, nullptr};
@@ -261,10 +255,10 @@ void unionfs_main(char* union_jail, char* branches, char* mount_dir,
       fuse_new(&args, &unionfs_oper, sizeof(unionfs_oper), nullptr);
   fuse_mount(fuse, mount_dir);
 
-  unionfs_ready = true;
-  unionfs_ready.notify_all();
+  state->unionfs_ready = true;
+  state->unionfs_ready.notify_all();
 
-  unionfs_fuse = fuse;
+  state->unionfs_fuse = fuse;
 
   struct fuse_loop_config* config = fuse_loop_cfg_create();
   fuse_loop_mt(fuse, config);
@@ -283,8 +277,8 @@ void unionfs_main(char* union_jail, char* branches, char* mount_dir,
 
   remove(base_dir);
 
-  unionfs_done = true;
-  unionfs_done.notify_all();
+  state->unionfs_done = true;
+  state->unionfs_done.notify_all();
 }
 
 std::expected<BelladonnaState*, std::string>
@@ -327,10 +321,10 @@ BelladonnaState::belladonna_create_sandbox() {
   mkdir(state->base_dir, 0);
   mkdir(state->root_dir, 0);
 
-  state->root_thread = std::thread(root_fuse_main, state->root_dir);
+  state->root_thread = std::thread(root_fuse_main, state, state->root_dir);
 
-  while (!root_ready) {
-    root_ready.wait(false);
+  while (!state->root_ready) {
+    state->root_ready.wait(false);
   }
 
   mkdir(state->changes_dir, 0);
@@ -346,11 +340,11 @@ BelladonnaState::belladonna_create_sandbox() {
            state->root_dir);
 
   state->unionfs_thread =
-      std::thread(unionfs_main, state->union_jail, state->branches,
+      std::thread(unionfs_main, state, state->union_jail, state->branches,
                   state->mount_dir, state->changes_dir, state->base_dir);
 
-  while (!unionfs_ready) {
-    unionfs_ready.wait(false);
+  while (!state->unionfs_ready) {
+    state->unionfs_ready.wait(false);
   }
 
   mount("/dev", state->dev_dir, nullptr, MS_BIND | MS_REC, nullptr);
