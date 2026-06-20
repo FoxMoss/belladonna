@@ -11,12 +11,14 @@
  */
 
 #include <archive.h>
+#include <pthread.h>
 #include <sys/wait.h>
 #include <sys/xattr.h>
 
 #include <algorithm>
 #include <array>
 #include <atomic>
+#include <csignal>
 #include <cstddef>
 #include <expected>
 #include <filesystem>
@@ -25,7 +27,6 @@
 #include "include/belladonna.h"
 
 extern "C" {
-#include "diffgen.h"
 #include <dirent.h>
 #include <fcntl.h>
 #include <fuse.h>
@@ -41,6 +42,7 @@ extern "C" {
 #include <unistd.h>
 
 #include "debug.h"
+#include "diffgen.h"
 #include "fuse.h"
 #include "fuse_log.h"
 #include "fuse_lowlevel.h"
@@ -149,14 +151,15 @@ static const struct fuse_operations passthrough_oper = {
     .init = passthrough_init,
 };
 
-
-void BelladonnaState::root_fuse_main(BelladonnaState * state, char* dir) {
+void BelladonnaState::root_fuse_main(BelladonnaState* state, char* dir) {
   char* argv[] = {"passthrough", nullptr};
   struct fuse_args args = FUSE_ARGS_INIT(1, argv);
 
   struct fuse* fuse =
       fuse_new(&args, &passthrough_oper, sizeof(passthrough_oper), nullptr);
   fuse_mount(fuse, dir);
+
+  fuse_set_signal_handlers(fuse_get_session(fuse));
 
   state->root_ready = true;
   state->root_ready.notify_all();
@@ -179,7 +182,6 @@ void BelladonnaState::root_fuse_main(BelladonnaState * state, char* dir) {
   return;
 }
 
-
 static struct fuse_opt unionfs_opts[] = {
     FUSE_OPT_KEY("chroot=%s,", KEY_CHROOT),
     FUSE_OPT_KEY("cow", KEY_COW),
@@ -199,8 +201,9 @@ static struct fuse_opt unionfs_opts[] = {
     FUSE_OPT_KEY("-V", KEY_VERSION),
     FUSE_OPT_END};
 
-void BelladonnaState ::unionfs_main(BelladonnaState * state, char* union_jail, char* branches, char* mount_dir,
-                  char* changes_dir, char* base_dir) {
+void BelladonnaState ::unionfs_main(BelladonnaState* state, char* union_jail,
+                                    char* branches, char* mount_dir,
+                                    char* changes_dir, char* base_dir) {
   int argc_internal = 3;
   char* argv_internal[] = {"unionfs", union_jail, branches, nullptr};
 
@@ -234,7 +237,7 @@ void BelladonnaState ::unionfs_main(BelladonnaState * state, char* union_jail, c
   if (default_permissions) {
     if (fuse_opt_add_arg(&args, "-odefault_permissions")) {
       fprintf(stderr,
-                   "Severe failure, can't enable permssion checks, aborting!");
+              "Severe failure, can't enable permssion checks, aborting!");
       return;
     }
   }
@@ -254,6 +257,8 @@ void BelladonnaState ::unionfs_main(BelladonnaState * state, char* union_jail, c
   struct fuse* fuse =
       fuse_new(&args, &unionfs_oper, sizeof(unionfs_oper), nullptr);
   fuse_mount(fuse, mount_dir);
+
+  fuse_set_signal_handlers(fuse_get_session(fuse));
 
   state->unionfs_ready = true;
   state->unionfs_ready.notify_all();
@@ -395,7 +400,10 @@ void BelladonnaState::start_shell() {
 
 BelladonnaState::~BelladonnaState() {
   fuse_session_exit(fuse_get_session(unionfs_fuse));
-  fuse_session_exit(fuse_get_session(root_fuse.load()));
+  fuse_session_exit(fuse_get_session(root_fuse));
+
+  pthread_kill(unionfs_thread.native_handle(), SIGPIPE);
+  pthread_kill(root_thread.native_handle(), SIGPIPE);
 
   while (!root_done) {
     root_done.wait(false);

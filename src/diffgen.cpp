@@ -30,7 +30,8 @@ void diffgen(const char* changed_dir, const char* truth_dir) {
       continue;
     }
 
-    printf("%s", file.path().c_str());
+    printf("%s\n",
+           file.path().string().substr(strlen(changed_dir), -1).c_str());
 
     struct archive* ard = archive_read_disk_new();
     archive_read_disk_set_standard_lookup(ard);
